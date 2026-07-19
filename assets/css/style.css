@@ -93,41 +93,45 @@
             align-items: center;
         }
 
-        /* ===== LOGO COM IMAGEM ===== */
+
+/* ===== LOGO COM IMAGEM (AJUSTADO & PROFISSIONAL) ===== */
         .logo-placeholder {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-family: var(--font-sans);
-            font-size: 1.1rem;
+            font-size: 0.95rem; /* Ajuste fino no tamanho do texto */
             font-weight: 500;
             letter-spacing: 2px;
             text-transform: uppercase;
             flex-shrink: 0;
+            height: 100%;
         }
 
         .logo-placeholder img {
-            height: 150px;
+            height: 100px; /* Tamanho normal e limpo para a logo */
             width: auto;
-            max-height: 150px;
+            max-height: 100px;
             display: block;
             object-fit: contain;
             transition: var(--transition-smooth);
         }
 
+        /* Reduz ligeiramente a logo no scroll para manter o visual premium e clean */
         .header.scrolled .logo-placeholder img {
-            height: 150px;
-            max-height: 150px;
+            height: 100px;
+            max-height: 100px;
         }
 
+        /* Responsividade consistente para mobile e tablet */
         @media (max-width: 768px) {
             .logo-placeholder img {
-                height: 150px;
-                max-height: 150px;
+                height: 100px;
+                max-height: 100px;
             }
             .header.scrolled .logo-placeholder img {
-                height: 150px;
-                max-height: 150px;
+                height: 100px;
+                max-height: 100px;
             }
         }
 
