@@ -1,13 +1,4 @@
 
-        // 1. Efeito Glassmorphism no Header durante o Scroll
-        const header = document.getElementById('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 30) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
 
         // 2. Menu Hambúrguer Interativo (Mobile)
         const menuToggle = document.getElementById('menu-toggle');
@@ -93,49 +84,50 @@
             });
         });
 
-        // 5. MARCAÇÃO DO LINK ATIVO NO HEADER
-        document.addEventListener("DOMContentLoaded", () => {
-            const navItems = document.querySelectorAll('.nav-item');
-            const sections = ['vestuario', 'acessorios', 'produtos'];
+    // 5. MARCAÇÃO DO LINK ATIVO NO HEADER
+            document.addEventListener("DOMContentLoaded", () => {
+                const navItems = document.querySelectorAll('.nav-item');
+                
+                // Pega o nome do arquivo atual (ex: "explore.html")
+                const currentPage = window.location.pathname.split("/").pop() || "explore.html";
 
-            function updateActiveLink() {
-                let currentSection = '';
-                const scrollPosition = window.scrollY + 150;
+                function updateActiveLink() {
+                    let currentSection = '';
+                    const scrollPosition = window.scrollY + 150;
 
-                sections.forEach(id => {
-                    const section = document.getElementById(id);
-                    if (section) {
-                        const offsetTop = section.offsetTop;
-                        const offsetBottom = offsetTop + section.offsetHeight;
+                    // Verifica primeiro se estamos scrollando sobre uma seção de âncora interna (ex: #produtos)
+                    const produtosSection = document.getElementById('produtos');
+                    if (produtosSection) {
+                        const offsetTop = produtosSection.offsetTop;
+                        const offsetBottom = offsetTop + produtosSection.offsetHeight;
                         if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-                            currentSection = id;
+                            currentSection = 'produtos';
                         }
                     }
-                });
 
-                navItems.forEach(item => {
-                    const sectionId = item.getAttribute('data-section');
-                    if (sectionId === currentSection) {
-                        item.classList.add('active');
-                    } else {
-                        item.classList.remove('active');
-                    }
-                });
-            }
+                    navItems.forEach(item => {
+                        const href = item.getAttribute('href');
+                        const sectionId = item.getAttribute('data-section');
 
-            // Atualiza ao carregar
-            updateActiveLink();
+                        // Se estivermos na seção do scroll (#produtos), marca ela
+                        if (currentSection && sectionId === currentSection) {
+                            item.classList.add('active');
+                        } 
+                        // Caso contrário, marca com base no arquivo HTML da página atual
+                        else if (!currentSection && href === currentPage) {
+                            item.classList.add('active');
+                        } 
+                        // Remove dos outros
+                        else {
+                            item.classList.remove('active');
+                        }
+                    });
+                }
 
-            // Atualiza ao scrollar
-            window.addEventListener('scroll', updateActiveLink);
-
-            // Atualiza ao clicar nos links (para garantir sincronia)
-            navItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    setTimeout(updateActiveLink, 100);
-                });
+                // Executa as verificações
+                updateActiveLink();
+                window.addEventListener('scroll', updateActiveLink);
             });
-        });
 
 
         //Script para gerenciar a compra via WhatsApp
